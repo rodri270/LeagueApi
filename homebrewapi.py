@@ -34,7 +34,10 @@ Summonerid = (json_object["id"])
 UserRankedRequest = requests.get("https://na1.api.riotgames.com//lol/league/v4/entries/by-summoner/{}?api_key={}".format(Summonerid, apikey))
 
 #prints everything in a raw string
-print (UserRankedRequest.text)
+#print (UserRankedRequest.text)
 
-#next step is to figure out a way to have it automatically  pull the info needed without having to manually tell it where the text is 
-#OR figure out how to get the request to show up in json and then parse the info that way 
+json_object_string2 = UserRankedRequest.text
+json_object2 = json.loads(json_object_string2)
+
+UserInformation = (json_object2["summonerName"])
+print (UserInformation)
