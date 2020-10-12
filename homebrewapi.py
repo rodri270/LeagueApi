@@ -9,13 +9,13 @@ import json
 
 
 #request input for who they wanna search up 
-SummonerName = input("Please enter summoner name: ")
+SummonerNames = input("Please enter summoner name: ")
 
 #varioable for the api key
-apikey ='RGAPI-5de70cb1-7458-4726-b4ba-3f3480c23160'
+apikey ='RGAPI-669a75d1-7044-4010-a8cd-9e01b8fbeb18'
 
 #get request for pulling the general user info 
-UserRequest = requests.get("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{}?api_key={}".format(SummonerName, apikey))
+UserRequest = requests.get("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{}?api_key={}".format(SummonerNames, apikey))
 
 
 #this will print in just raw text 
@@ -28,16 +28,30 @@ json_object_string = UserRequest.text
 json_object = json.loads(json_object_string)
 
 #this lets you call the value from above, pick a certain value and assign it to a new variable 
-Summonerid = (json_object["id"])
+SummonerNum = (json_object["id"])
+#print (SummonerNum)
 
 #New get request for the ranked aspect of the user 
-UserRankedRequest = requests.get("https://na1.api.riotgames.com//lol/league/v4/entries/by-summoner/{}?api_key={}".format(Summonerid, apikey))
-
-#prints everything in a raw string
-#print (UserRankedRequest.text)
+UserRankedRequest = requests.get("https://na1.api.riotgames.com//lol/league/v4/entries/by-summoner/{}?api_key={}".format(SummonerNum, apikey))
 
 json_object_string2 = UserRankedRequest.text
 json_object2 = json.loads(json_object_string2)
 
-UserInformation = (json_object2["summonerName"])
-print (UserInformation)
+for s in range(len(json_object2)):
+    if json_object2[s]["summonerId"] == SummonerNum:
+        print("{} is ranked as {} in {}".format(json_object2[s]["summonerName"], json_object2[s]["tier"], json_object2[s]["queueType"])) 
+
+
+
+
+
+
+
+
+#prints everything in a raw string
+#print (UserRankedRequest.text)
+
+
+
+#UserInformation = (json_object2["summonerName"])
+#print (UserInformation)
