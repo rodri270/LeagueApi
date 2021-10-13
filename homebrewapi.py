@@ -47,7 +47,7 @@ for s in range(len(json_object2)):
 
 
 #prints everything in a raw string
-print (UserRankedRequest.text)
+#print (UserRankedRequest.text)
 
 
 
